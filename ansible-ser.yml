@@ -1,0 +1,10 @@
+- name: Create Service
+  hosts: localhost
+  user: ubuntu
+  become: yes
+
+  tasks:
+  - name: Create Service for Application
+    shell:
+      cmd: kubectl expose deployment/node-js-image --type="NodePort" --port 8080 --name node-port-service
+

@@ -1,0 +1,11 @@
+- name: Create Deployment
+  hosts: localhost
+  user: ubuntu
+  become: yes
+
+  tasks:
+  - name: Create Image Deployment from DockerHub
+    become: true
+    shell:
+      cmd: kubectl create deployment node-js-image --image=agoyal1981/node-js:1.0
+

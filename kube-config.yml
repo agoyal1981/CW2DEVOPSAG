@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: node-js-image
+  name: node-js-image
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-js-image
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: node-js-image
+    spec:
+      containers:
+      - image: agoyal1981/node-js:1.0
+        name: node-js
+        ports:
+        - name: node-js
+          containerPort: 8080
+
+---
+# Node Port Service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: node-js-image
+  name: node-js-image
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    name: node-js-image
+

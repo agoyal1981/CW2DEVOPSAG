@@ -1,0 +1,49 @@
+- name: Playbook to Insall Kubectl and Minikube
+  hosts: localhost
+  user: ubuntu
+  become: yes
+
+  tasks:
+  - name: 1. Update Package
+    apt:
+      update_cache: yes
+
+  - name: 2. Intall Application
+    apt:
+      name={{ item }}
+    with_items:
+      - apt-transport-https
+
+  - name: 3. Get packages
+    shell:
+      cmd: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+  - name: 4. Source file
+    shell:
+      cmd: echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+
+  - name: 5. Update Package Manager
+    apt:
+      update_cache: yes
+
+  - name: 6. Install Kubectl
+    apt:
+      name: kubectl
+
+  - name: 7. Install Minikube
+    shell: curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+  - name: 8. Change File permissions
+    shell:
+      cmd: chmod 777 minikube
+
+  - name: 9. Move Minikube
+    copy:
+      src: ./minikube
+      dest: /usr/local/bin/
+
+  - name: 10. Launch Minikube
+    become: no
+    shell:
+      cmd: minikube start
+
