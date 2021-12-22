@@ -33,14 +33,11 @@
   - name: 7. Install Minikube
     shell: curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
-  - name: 8. Change File permissions
-    shell:
-      cmd: chmod 777 minikube
-
-  - name: 9. Move Minikube
+  - name: 9. Move Minikube and change file permission
     copy:
       src: ./minikube
       dest: /usr/local/bin/
+      mode: '+x'
 
   - name: 10. Launch Minikube
     become: no
