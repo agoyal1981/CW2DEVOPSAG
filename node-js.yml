@@ -5,7 +5,7 @@ Metadata:
 spec:
    containers:
    - name: node-js-container01
-     image: agoyal1981/node-js:1.0
+     image: agoyal1981/node-js-cw2
      ports:
      - containerPort: 8080
 
